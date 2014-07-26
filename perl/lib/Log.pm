@@ -39,7 +39,7 @@ sub uri {
 
 sub time {
     my $self = shift;
-    my $dt = DateTime->from_epoch(epoch => $self->{epoch}, time_zone => 'Asia/Tokyo'); # Specifying JST
+    my $dt = DateTime->from_epoch(epoch => $self->{epoch}, time_zone => 'GMT'); # Specifying GMT
     return $dt->strftime('%Y-%m-%dT%H:%M:%S');
 }
 
