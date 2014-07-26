@@ -6,34 +6,31 @@ use DateTime;
 
 sub new {
     my ($class, %args) = @_;
-
-    my ($method, $path, $protocol) = split(/ /, $args{req});
-    $args{method} = $method;
-    $args{path} = $path;
-    $args{protocol} = $protocol;
-
     return bless \%args, $class;
 }
 
 sub protocol {
     my $self = shift;
-    return $self->{protocol};
+    my ($method, $path, $protocol) = split(/ /, $self->{req});
+    return $protocol;
 }
 
 sub method {
     my $self = shift;
-    return $self->{method};
+    my ($method, $path, $protocol) = split(/ /, $self->{req});
+    return $method;
 }
 
 sub path {
     my $self = shift;
-    return $self->{path};
+    my ($method, $path, $protocol) = split(/ /, $self->{req});
+    return $path;
 }
 
 sub uri {
     my $self = shift;
+    my ($method, $path, $protocol) = split(/ /, $self->{req});
     my $host = $self->{host};
-    my $path = $self->{path};
     return "http://$host$path";
 }
 
