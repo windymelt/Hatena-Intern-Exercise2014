@@ -17,25 +17,21 @@ sub new {
 
 sub protocol {
     my $self = shift;
-
     return $self->{protocol};
 }
 
 sub method {
     my $self = shift;
-
     return $self->{method};
 }
 
 sub path {
     my $self = shift;
-
     return $self->{path};
 }
 
 sub uri {
     my $self = shift;
-
     my $host = $self->{host};
     my $path = $self->{path};
     return "http://$host$path";
@@ -43,7 +39,7 @@ sub uri {
 
 sub time {
     my $self = shift;
-    my $dt = DateTime->from_epoch(epoch => $self->{epoch}, time_zone => 'Asia/Tokyo');
+    my $dt = DateTime->from_epoch(epoch => $self->{epoch}, time_zone => 'Asia/Tokyo'); # Specifying JST
     return $dt->strftime('%Y-%m-%dT%H:%M:%S');
 }
 
