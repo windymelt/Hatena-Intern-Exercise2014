@@ -40,4 +40,20 @@ sub time {
     return $dt->strftime('%Y-%m-%dT%H:%M:%S');
 }
 
+sub to_hash {
+    my $self = shift;
+    my $hash = {
+	status  => $self->{status},
+	time    => $self->time,
+	size    => $self->{size},
+	uri     => $self->uri,
+	method  => $self ->method,
+	referer => $self->{referer}
+    };
+    if (defined($self->{user})) {
+	$hash->{user} = $self->{user};
+    }
+    $hash;
+}
+
 1;
