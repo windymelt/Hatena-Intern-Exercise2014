@@ -47,7 +47,7 @@ sub to_hash {
 	time    => $self->time,
 	size    => $self->{size},
 	uri     => $self->uri,
-	method  => $self ->method,
+	method  => $self->method,
 	referer => $self->{referer}
     };
     if (defined($self->{user})) {
