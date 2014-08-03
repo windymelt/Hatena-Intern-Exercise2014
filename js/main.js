@@ -9,7 +9,7 @@ function parseLTSVLog(logStr){
 
     var logStrLines = logStr.split("\n");
     var parsedLogs = [];
-
+    
     logStrLines.forEach(function(aLine){
 	if(aLine != ''){
 	    var logHashTable = new Object();
