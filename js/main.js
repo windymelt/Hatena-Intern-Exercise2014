@@ -33,3 +33,22 @@ function parseLTSVLog(logStr){
     return parsedLogs;
 }
 // 課題 JS-2: 関数 `createLogTable` を記述してください
+function createLogTable(divDOM, parsedLTSV){
+    var theadDOM = divDOM.appendChild(document.createElement('table'))
+	.appendChild(document.createElement('thead'))
+	.appendChild(document.createElement('tr'));
+    
+    theadDOM.appendChild(document.createElement('th')).innerHTML = 'path';
+    theadDOM.appendChild(document.createElement('th')).innerHTML = 'reqtime_microsec';
+    
+    var tbodyDOM = divDOM.firstChild.appendChild(document.createElement('tbody'));
+    
+    parsedLTSV.forEach(function(anHashTable){
+	var trDOM = tbodyDOM.appendChild(document.createElement('tr'));
+	trDOM.appendChild(document.createElement('td')).innerHTML = anHashTable['path'];
+	trDOM.appendChild(document.createElement('td')).innerHTML = anHashTable['reqtime_microsec'];
+    })
+    
+    // logging
+    console.log(divDOM.innerHTML);
+}
