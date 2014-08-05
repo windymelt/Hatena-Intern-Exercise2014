@@ -33,7 +33,7 @@ sub meantime_for_path {
     my $from = ($path_min / $maximum) * $bar_length;
     my $to = ($path_max / $maximum) * $bar_length;
     my @bar = split //, ('-' x $bar_length);
-    for($from..$to){
+    for($from..$to - 1){
       $bar[$_] = '=';
     }
     my $avg = average(@{$access_count{$path}});
