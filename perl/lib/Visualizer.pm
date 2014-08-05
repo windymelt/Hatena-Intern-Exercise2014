@@ -1,10 +1,12 @@
 package Visualizer;
 use strict;
 use warnings;
+use 5.010;
 
 use DateTime;
 use Data::Dumper;
-use List::Util 'min', 'max', 'sum';
+use List::Util qw/min max sum/;
+use Term::ANSIColor;
 
 sub new {
   my ($class, %args) = @_;
@@ -27,22 +29,26 @@ sub meantime_for_path {
   }
   #print Dumper(%access_count);
   foreach my $path (sort keys %access_count){
-    my $bar_length = $maximum_length - $maximum_path_length;
+    # allocate for blank space
+    my $bar_length = $maximum_length - $maximum_path_length - 2;
     my $path_min = min(@{$access_count{$path}});
     my $path_max = max(@{$access_count{$path}});
-    my $from = ($path_min / $maximum) * $bar_length;
-    my $to = ($path_max / $maximum) * $bar_length;
+    my $from = int(($path_min / $maximum) * $bar_length);
+    my $to = int(($path_max / $maximum) * $bar_length);
     my @bar = split //, ('-' x $bar_length);
-    for($from..$to - 1){
-      $bar[$_] = '=';
+    foreach($from..($to - 1)){
+      when($from){$bar[$_] = '<';}
+      when($to - 1){$bar[$_] = '>';}
+      default{$bar[$_] = '=';}
     }
-    my $avg = average(@{$access_count{$path}});
-    $bar[($avg / $maximum) * $bar_length] = 'A';
+    my $avg = int average(@{$access_count{$path}});
+    $bar[($avg / $maximum) * $bar_length] = colored('A', 'cyan');
     my $mean = mean(@{$access_count{$path}});
-    $bar[($mean / $maximum) * $bar_length] = 'M';
-    printf "%${maximum_path_length}s%s%s\n", $path, join('', @bar), "$path_min - $path_max, AVG $avg, MEAN $mean";
+    $bar[($mean / $maximum) * $bar_length] = colored('M', 'green');
+    printf "%${maximum_path_length}s %s %s\n", $path, join('', @bar),
+      "$path_min - $path_max, " . colored("AVG(int) $avg", 'cyan') . ', ' . colored("MEAN $mean", 'green');
   }
-  print "-----visualize status-----";
+  print "-----visualize status-----\n";
   printf "MIN: %d MAX: %d \n", $minimum, $maximum;
 }
 
@@ -56,12 +62,12 @@ sub average {
 sub mean {
   my $self = shift;
   my @them = sort @_;
-  if(@them % 2){
+  if(@them % 2 == 1){
     # odd
     @them[@them / 2];
   }else{
     #even
-    (@them[@them / 2 - 1] + @them[@them / 2]) / 2;
+    (@them[@them / 2] + @them[@them / 2 + 1]) / 2;
   }
 }
 
