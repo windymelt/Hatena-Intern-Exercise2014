@@ -1,0 +1,22 @@
+.highlight {
+    background-color: #b58900;
+    color: #002b36;
+}
+
+
+#table { width: 100%; height: 100% }
+#table-container { width: 100%; height: 100% }
+
+tbody {
+    width:100%;height:100%;overflow-y:scroll;margin:0;padding:8
+}
+
+#submit-button {
+    /* 文字の太さをboldに指定 */
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px 30px;
+    background-color: #859900;
+    color: #002b36;
+    border-style: none;
+}

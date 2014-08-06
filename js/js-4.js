@@ -10,9 +10,6 @@ if(document.getElementById('submit-button')){
 	// clearing div for the table
 	tableContainerDOM.innerHTML = '';
 	createLogTable(tableContainerDOM, parseLTSVLog(LTSVText));
-	//jQuery(function(){
-	//    $('#table').tablesorter();
-	//});
     });
 }
 
@@ -21,11 +18,19 @@ $('#query').keyup(function(){
     console.log('query keyup');
     if(! $(this).val()){
 	console.log('no query');
+	$('#table tbody tr').unhighlight();
 	$('#table tbody tr').show();
     } else {
-	console.log('query found');
+	console.log('query found: ' + this.value);
 	$('#table tbody tr').hide();
-	$('#table tbody tr:contains(' + this.value + ')').show();
+	var queries = $.trim(this.value).split(' ');
+	// remove last empty element
+
+	var queriesString = ':not(:not(tr:contains(' + queries.join(')), :not(tr:contains(') + ')))';
+	console.log('qstr: ' + queriesString);
+	$('#table tbody ' + queriesString).show();
+	$('#table tbody tr').unhighlight();
+	$('#table tbody').highlight(queries, {caseSensitive: true});
     }
 })
 
