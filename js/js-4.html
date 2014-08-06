@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Hatena-Intern-Exercise2014 : JavaScript</title>
+  <link rel="stylesheet" href="js-3.css" />
+</head>
+<body>
+  <section>
+    <h1>JavaScript 事前課題</h1>
+    <h2>課題 JS-4 : イベントリスナを使用する</h2>
+    <p>「表に出力する」 ボタンをクリックすると、テキストエリアに入力したログデータが表として表示されるようにしてください。 その際、課題 JS-1 と JS-2 で作成した関数を使用してください。</p>
+    <p>また、表 (table 要素) は table-container を id として持つ div 要素の子要素として作成するようにしてください。</p>
+    <div>
+      <textarea id="log-input" cols="64" rows="10">
+
+</textarea>
+      <div><input value="表に出力する" type="button" id="submit-button" /></div>
+    </div>
+    <div>
+      <input id="query" size="30" type="text">
+    </div>
+    <div id="table-container"></div>
+  </section>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+  <script src="main.js"></script>
+  <script src="js-4.js"></script>
+</body>
+</html>

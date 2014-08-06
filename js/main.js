@@ -34,34 +34,23 @@ function parseLTSVLog(logStr){
 }
 // 課題 JS-2: 関数 `createLogTable` を記述してください
 function createLogTable(divDOM, parsedLTSV){
-    var theadDOM = divDOM.appendChild(document.createElement('table'))
+    var tableDOM = divDOM.appendChild(document.createElement('table'));
+    tableDOM.id = 'table';
+    var theadDOM = tableDOM
 	.appendChild(document.createElement('thead'))
 	.appendChild(document.createElement('tr'));
     
-    theadDOM.appendChild(document.createElement('th')).innerHTML = 'path';
-    theadDOM.appendChild(document.createElement('th')).innerHTML = 'reqtime_microsec';
+    for(key in parsedLTSV[0]) {
+	theadDOM.appendChild(document.createElement('th')).innerHTML = key;
+    }
     
     var tbodyDOM = divDOM.firstChild.appendChild(document.createElement('tbody'));
     
     parsedLTSV.forEach(function(anHashTable){
 	var trDOM = tbodyDOM.appendChild(document.createElement('tr'));
-	trDOM.appendChild(document.createElement('td')).innerHTML = anHashTable['path'];
-	trDOM.appendChild(document.createElement('td')).innerHTML = anHashTable['reqtime_microsec'];
+	for(key in anHashTable){
+	    trDOM.appendChild(document.createElement('td')).innerHTML = anHashTable[key];
+	}
     })
-    
-    // logging
-    console.log(divDOM.innerHTML);
-}
-
-// do only if 'submit-button' is defined to avoid an error when testing
-if(document.getElementById('submit-button')){
-// when submit-button is clicked
-    document.getElementById('submit-button').addEventListener('click', function(){
-	var tableContainerDOM = document.getElementById('table-container');
-	var LTSVText = document.getElementById('log-input').value;
-	// clearing div for the table
-	tableContainerDOM.innerHTML = '';
-	createLogTable(tableContainerDOM, parseLTSVLog(LTSVText));
-    });
 }
 
